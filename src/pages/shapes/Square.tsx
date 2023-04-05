@@ -28,9 +28,9 @@ const SquareScreen = () => {
                 <SquareSVG color="white" size={250} />
             </View>
         </View>
-        <DropdownComponent data={UNIT} init={inputUnits} setInit={setInputUnits} placeholder="Select Unit" highlight={BG_COLOR} />
+        <DropdownComponent data={UNIT} init={inputUnits} setInit={setInputUnits} placeholder="Select Input Unit" highlight={BG_COLOR} />
         <NumericInputComponent init={side} setInit={setSide} placeholder="Side of Square" highlight={BG_COLOR} />
-        <DropdownComponent data={UNIT} init={outputUnits} setInit={setOutputUnits} placeholder="Select Unit" highlight={BG_COLOR} />
+        <DropdownComponent data={UNIT} init={outputUnits} setInit={setOutputUnits} placeholder="Select Output Unit" highlight={BG_COLOR} />
         <View style={styles.outputWrapper}>
           <OutputComponents color={BG_COLOR} title="Side" data={value} symbol={outputUnits.symbol} />
           <OutputComponents color={BG_COLOR} title="Diagonal" data={findDiagonal(value, value)} symbol={outputUnits.symbol} />

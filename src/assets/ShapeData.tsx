@@ -2,6 +2,7 @@ import React from "react"
 import CircleSVG from "../components/SVG/CircleSVG"
 import RectSVG from "../components/SVG/RectSVG"
 import SquareSVG from "../components/SVG/SquareSVG"
+import TrapeziumSVG from "../components/SVG/Trapezium"
 import TriangleSVG from "../components/SVG/TriangleSVG"
 
 function colourizeSVG(fragment: JSX.Element, color:string): JSX.Element{
@@ -36,6 +37,13 @@ const SHAPES = [
       color: '#bae6fd',   // 200
       bgColor: '#0284c7',  //600
       shapeSVG: colourizeSVG(<RectSVG/>, '#bae6fd')
+    },
+    {
+      shape: 'Trapezium',
+      to: 'trapezium',
+      color: '#c7d2fe',   // 200
+      bgColor: '#4f46e5',  //600
+      shapeSVG: colourizeSVG(<TrapeziumSVG/>, '#c7d2fe')
     },
 ]
 

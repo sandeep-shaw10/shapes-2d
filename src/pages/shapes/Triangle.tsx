@@ -44,11 +44,11 @@ const TriangleScreen = () => {
                 <TriangleSVG color="white" size={250} />
             </View>
         </View>
-        <DropdownComponent data={UNIT} init={inputUnits} setInit={setInputUnits} placeholder="Select Unit" highlight={BG_COLOR} />
+        <DropdownComponent data={UNIT} init={inputUnits} setInit={setInputUnits} placeholder="Select Input Unit" highlight={BG_COLOR} />
         <NumericInputComponent init={side1} setInit={setSide1} placeholder="First Side of Square" highlight={BG_COLOR} />
         <NumericInputComponent init={side2} setInit={setSide2} placeholder="Second Side of Square" highlight={BG_COLOR} />
         <NumericInputComponent init={side3} setInit={setSide3} placeholder="Third Side of Square" highlight={BG_COLOR} />
-        <DropdownComponent data={UNIT} init={outputUnits} setInit={setOutputUnits} placeholder="Select Unit" highlight={BG_COLOR} />
+        <DropdownComponent data={UNIT} init={outputUnits} setInit={setOutputUnits} placeholder="Select Output Unit" highlight={BG_COLOR} />
         { area !== -1 ? <View style={styles.outputWrapper}>
           <OutputComponents color={BG_COLOR} title="Side 1" data={value1} symbol={outputUnits.symbol} />
           <OutputComponents color={BG_COLOR} title="Side 2" data={value2} symbol={outputUnits.symbol} />

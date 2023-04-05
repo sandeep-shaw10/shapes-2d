@@ -19,5 +19,5 @@ function findDiagonal(width: number, height: number): number {
 
 export { 
   triangleArea,
-  findDiagonal
+  findDiagonal,
 }
