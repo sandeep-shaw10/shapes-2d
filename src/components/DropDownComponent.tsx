@@ -1,20 +1,15 @@
 import React, { PropsWithChildren, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
+import { UnitData } from '../type';
 
-
-interface DropdownItem {
-    label: string,
-    value: string,
-    symbol: string
-}
 
 type ComponentsProps = PropsWithChildren<{
-    data: DropdownItem[],
+    data: UnitData[],
     placeholder: string,
     highlight: string,
-    init: DropdownItem,
-    setInit: (x:DropdownItem) => void
+    init: UnitData,
+    setInit: (x:UnitData) => void
 }>;
 
 const DropdownComponent = ({ data, placeholder, highlight, init, setInit }: ComponentsProps) => {
@@ -23,7 +18,7 @@ const DropdownComponent = ({ data, placeholder, highlight, init, setInit }: Comp
   const renderLabel = () => {
     if (init || isFocus) {
       return (
-        <Text style={[styles.label, isFocus && { color: highlight }]}>
+        <Text style={[styles.label, { color: highlight }]}>
           {placeholder}
         </Text>
       );
@@ -35,10 +30,11 @@ const DropdownComponent = ({ data, placeholder, highlight, init, setInit }: Comp
     <View style={styles.container}>
       {renderLabel()}
       <Dropdown
+        itemTextStyle={{ color: highlight }}
         style={[styles.dropdown, isFocus && { borderColor: highlight }]}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={[styles.selectedTextStyle, { color: highlight }]}
-        inputSearchStyle={styles.inputSearchStyle}
+        inputSearchStyle={[styles.inputSearchStyle, { color: highlight }]}
         iconStyle={styles.iconStyle}
         data={data}
         search
@@ -91,7 +87,7 @@ const styles = StyleSheet.create({
   },
   selectedTextStyle: {
     fontSize: 16,
-    paddingLeft: 8
+    paddingLeft: 8,
   },
   iconStyle: {
     width: 20,

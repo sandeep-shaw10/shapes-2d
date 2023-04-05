@@ -4,22 +4,19 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import DropdownComponent from "../../components/DropDownComponent";
 import CircleSVG from "../../components/SVG/CircleSVG";
 import NumericInputComponent from "../../components/NumericInputComponent";
+import UNIT from "../../assets/UnitData";
+import OutputComponents from "../../components/OutputComponent";
+import convertUnits from "../../utils/convertUnits";
 
 
 const CircleScreen = () => {
 
   const BG_COLOR = '#16a34a'
   const backgroundStyle = { backgroundColor: BG_COLOR };
-  const UNIT = [
-    { label: 'Foot (ft)', value: '1', symbol: 'ft' },
-    { label: 'Yard (yd)', value: '2', symbol: 'yd' },
-    { label: 'Centimeter (cm)', value: '3', symbol: 'cm' },
-    { label: 'Meter (m)', value: '4', symbol: 'm' },
-    { label: 'KiloMeter (km)', value: '5', symbol: 'km' },
-    { label: 'Inch (in)', value: '6', symbol: 'in' },
-  ];
-  const [units, setUnits] = useState(UNIT[0])
+  const [inputUnits, setInputUnits] = useState(UNIT[0])
+  const [outputUnits, setOutputUnits] = useState(UNIT[1])
   const [radius, setRadius] = useState<string>('')
+  const value = convertUnits(parseFloat(radius), inputUnits.symbol, outputUnits.symbol, UNIT);
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -29,13 +26,14 @@ const CircleScreen = () => {
                 <CircleSVG color="white" size={250} />
             </View>
         </View>
-        <DropdownComponent data={UNIT} init={units} setInit={setUnits} placeholder="Select Unit" highlight={BG_COLOR} />
+        <DropdownComponent data={UNIT} init={inputUnits} setInit={setInputUnits} placeholder="Select Unit" highlight={BG_COLOR} />
         <NumericInputComponent init={radius} setInit={setRadius} placeholder="Radius of Circle" highlight={BG_COLOR} />
+        <DropdownComponent data={UNIT} init={outputUnits} setInit={setOutputUnits} placeholder="Select Unit" highlight={BG_COLOR} />
         <View style={styles.outputWrapper}>
-          <Text style={styles.outputText}>Diameter: {isNaN(parseFloat(radius)) ? 0 : 2*parseFloat(radius)} {units.symbol}</Text>
-          <Text style={styles.outputText}>Circumference: {isNaN(parseFloat(radius)) ? 0 : 2*(22/7)*parseFloat(radius)} {units.symbol}</Text>
-          <Text style={styles.outputText}>Area: {isNaN(parseFloat(radius)) ? 0 : (22/7)*parseFloat(radius)*parseFloat(radius)} {units.symbol}</Text>
-
+          <OutputComponents color={BG_COLOR} title="Radius" data={value} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Diameter" data={2*value} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Circumference" data={2*(22/7)*value} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} unit={2} title="Area" data={(22/7)*value*value} symbol={outputUnits.symbol} />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -57,9 +55,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 16,
     width: '100%',
-  },
-  outputText: {
-    fontSize: 18
+    paddingBottom: 32
   }
 })
 

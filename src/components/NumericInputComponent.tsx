@@ -15,7 +15,7 @@ const TextInputComponent = ({ placeholder, highlight, init, setInit }: Component
   const renderLabel = () => {
     if (init || isFocus) {
       return (
-        <Text style={[styles.label, isFocus && { color: highlight }]}>
+        <Text style={[styles.label, { color: highlight }]}>
           {placeholder}
         </Text>
       );
@@ -31,21 +31,25 @@ const TextInputComponent = ({ placeholder, highlight, init, setInit }: Component
         inputMode='decimal'
         keyboardType='decimal-pad'
         placeholder={!isFocus ? placeholder : '...'}
+        placeholderTextColor={highlight}
         autoCapitalize={'none'}
         value={init ? String(init) : ''}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
-        onChangeText={item => {
-          const lastVal = item.substring(item.length-1)
-          if(isNaN(parseInt(lastVal)) && lastVal !== ',' && lastVal !== '.' && lastVal !== ''){ return }
-          if(lastVal === ',') {
-            setInit(item.substring(0,item.length-1));
-          }else{
-              if(item.split('.').length <= 2){
-                setInit(item)
-              }else{
-                setInit(item.substring(0,item.length-1))
-              }
+        onChangeText={(item: string) => {
+          const lastVal = item.slice(-1);
+          if (/[^0-9,.]/.test(lastVal)) {
+            return;
+          }
+          if (lastVal === ',') {
+            setInit(item.slice(0, -1));
+          } else {
+            const parts = item.split('.');
+            if (parts.length <= 2) {
+              setInit(item);
+            } else {
+              setInit(item.slice(0, -1));
+            }
           }
           setIsFocus(false);
         }}
