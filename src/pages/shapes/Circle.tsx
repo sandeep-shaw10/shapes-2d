@@ -7,6 +7,7 @@ import NumericInputComponent from "../../components/NumericInputComponent";
 import UNIT from "../../assets/UnitData";
 import OutputComponents from "../../components/OutputComponent";
 import convertUnits from "../../utils/convertUnits";
+import SliderComponent from "../../components/SliderComponent";
 
 
 const CircleScreen = () => {
@@ -16,7 +17,14 @@ const CircleScreen = () => {
   const [inputUnits, setInputUnits] = useState(UNIT[0])
   const [outputUnits, setOutputUnits] = useState(UNIT[1])
   const [radius, setRadius] = useState<string>('')
+  const [roundOff, setRoundOff] = useState<number>(0)
   const value = convertUnits(parseFloat(radius), inputUnits.symbol, outputUnits.symbol, UNIT);
+  const VAL = {
+    RADIUS: parseFloat(value.toFixed(roundOff)),
+    DIAMETER: parseFloat((value*2).toFixed(roundOff)),
+    CIRCUMFERENCE: parseFloat((2*(22/7)*value).toFixed(roundOff)),
+    AREA: parseFloat(((22/7)*value*value).toFixed(roundOff))
+  }
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -26,14 +34,21 @@ const CircleScreen = () => {
                 <CircleSVG color="white" size={250} />
             </View>
         </View>
-        <DropdownComponent data={UNIT} init={inputUnits} setInit={setInputUnits} placeholder="Select Input Unit" highlight={BG_COLOR} />
+        <View style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+          <View style={{ width: '50%' }}>
+            <DropdownComponent data={UNIT} init={inputUnits} setInit={setInputUnits} placeholder="Select Input Unit" highlight={BG_COLOR} />
+          </View>
+          <View style={{ width: '50%' }}>
+            <DropdownComponent data={UNIT} init={outputUnits} setInit={setOutputUnits} placeholder="Select Output Unit" highlight={BG_COLOR} />
+          </View>
+        </View>
         <NumericInputComponent init={radius} setInit={setRadius} placeholder="Radius of Circle" highlight={BG_COLOR} />
-        <DropdownComponent data={UNIT} init={outputUnits} setInit={setOutputUnits} placeholder="Select Output Unit" highlight={BG_COLOR} />
         <View style={styles.outputWrapper}>
-          <OutputComponents color={BG_COLOR} title="Radius" data={value} symbol={outputUnits.symbol} />
-          <OutputComponents color={BG_COLOR} title="Diameter" data={2*value} symbol={outputUnits.symbol} />
-          <OutputComponents color={BG_COLOR} title="Circumference" data={2*(22/7)*value} symbol={outputUnits.symbol} />
-          <OutputComponents color={BG_COLOR} unit={2} title="Area" data={(22/7)*value*value} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Radius" data={VAL.RADIUS} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Diameter" data={VAL.DIAMETER} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Circumference" data={VAL.CIRCUMFERENCE} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} unit={2} title="Area" data={VAL.AREA} symbol={outputUnits.symbol} />
+          <SliderComponent color={BG_COLOR} roundOff={roundOff} setRoundOff={setRoundOff} />
         </View>
       </ScrollView>
     </SafeAreaView>

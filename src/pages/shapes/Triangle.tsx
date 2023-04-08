@@ -5,6 +5,7 @@ import UNIT from "../../assets/UnitData";
 import DropdownComponent from "../../components/DropDownComponent";
 import NumericInputComponent from "../../components/NumericInputComponent";
 import OutputComponents from "../../components/OutputComponent";
+import SliderComponent from "../../components/SliderComponent";
 import TriangleSVG from "../../components/SVG/TriangleSVG";
 import convertUnits from "../../utils/convertUnits";
 import { triangleArea } from "../../utils/shapeCalculator";
@@ -31,10 +32,17 @@ const TriangleScreen = () => {
   const [side1, setSide1] = useState<string>('')
   const [side2, setSide2] = useState<string>('')
   const [side3, setSide3] = useState<string>('')
+  const [roundOff, setRoundOff] = useState<number>(0)
   const value1 = convertUnits(parseFloat(side1), inputUnits.symbol, outputUnits.symbol, UNIT);
   const value2 = convertUnits(parseFloat(side2), inputUnits.symbol, outputUnits.symbol, UNIT);
   const value3 = convertUnits(parseFloat(side3), inputUnits.symbol, outputUnits.symbol, UNIT);
-  const area = triangleArea(value1, value2, value3)
+  const VAL = {
+    SIDE1: parseFloat(value1.toFixed(roundOff)),
+    SIDE2: parseFloat(value2.toFixed(roundOff)),
+    SIDE3: parseFloat(value3.toFixed(roundOff)),
+    PERIMETER: parseFloat((value1 + value2 + value3).toFixed(roundOff)),
+    AREA: parseFloat((triangleArea(value1, value2, value3)).toFixed(roundOff))
+  }
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -49,12 +57,13 @@ const TriangleScreen = () => {
         <NumericInputComponent init={side2} setInit={setSide2} placeholder="Second Side of Square" highlight={BG_COLOR} />
         <NumericInputComponent init={side3} setInit={setSide3} placeholder="Third Side of Square" highlight={BG_COLOR} />
         <DropdownComponent data={UNIT} init={outputUnits} setInit={setOutputUnits} placeholder="Select Output Unit" highlight={BG_COLOR} />
-        { area !== -1 ? <View style={styles.outputWrapper}>
-          <OutputComponents color={BG_COLOR} title="Side 1" data={value1} symbol={outputUnits.symbol} />
-          <OutputComponents color={BG_COLOR} title="Side 2" data={value2} symbol={outputUnits.symbol} />
-          <OutputComponents color={BG_COLOR} title="Side 3" data={value3} symbol={outputUnits.symbol} />
-          <OutputComponents color={BG_COLOR} title="Perimeter" data={value1+value2+value3} symbol={outputUnits.symbol} />
-          <OutputComponents color={BG_COLOR} unit={2} title="Area" data={area} symbol={outputUnits.symbol} />
+        { VAL.AREA !== -1 ? <View style={styles.outputWrapper}>
+          <OutputComponents color={BG_COLOR} title="Side 1" data={VAL.SIDE1} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Side 2" data={VAL.SIDE2} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Side 3" data={VAL.SIDE3} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Perimeter" data={VAL.PERIMETER} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} unit={2} title="Area" data={VAL.AREA} symbol={outputUnits.symbol} />
+          <SliderComponent color={BG_COLOR} roundOff={roundOff} setRoundOff={setRoundOff} />
         </View> : <View style={styles.outputWrapper}>
             <Text style={{ fontSize: 32 }}>Not A Valid Triangle</Text>
             <InValid v1={side1} v2={side2} v3={side3} />

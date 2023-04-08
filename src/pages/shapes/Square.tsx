@@ -5,6 +5,7 @@ import UNIT from "../../assets/UnitData";
 import DropdownComponent from "../../components/DropDownComponent";
 import NumericInputComponent from "../../components/NumericInputComponent";
 import OutputComponents from "../../components/OutputComponent";
+import SliderComponent from "../../components/SliderComponent";
 import SquareSVG from "../../components/SVG/SquareSVG";
 import convertUnits from "../../utils/convertUnits";
 import { findDiagonal } from "../../utils/shapeCalculator";
@@ -17,8 +18,14 @@ const SquareScreen = () => {
   const [inputUnits, setInputUnits] = useState(UNIT[0])
   const [outputUnits, setOutputUnits] = useState(UNIT[1])
   const [side, setSide] = useState<string>('')
+  const [roundOff, setRoundOff] = useState<number>(0)
   const value = convertUnits(parseFloat(side), inputUnits.symbol, outputUnits.symbol, UNIT);
-
+  const VAL = {
+    SIDE: parseFloat(value.toFixed(roundOff)),
+    DIAGONAL: parseFloat((findDiagonal(value, value)).toFixed(roundOff)),
+    PERIMETER: parseFloat((4*value).toFixed(roundOff)),
+    AREA: parseFloat((value*value).toFixed(roundOff))
+  }
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -32,10 +39,11 @@ const SquareScreen = () => {
         <NumericInputComponent init={side} setInit={setSide} placeholder="Side of Square" highlight={BG_COLOR} />
         <DropdownComponent data={UNIT} init={outputUnits} setInit={setOutputUnits} placeholder="Select Output Unit" highlight={BG_COLOR} />
         <View style={styles.outputWrapper}>
-          <OutputComponents color={BG_COLOR} title="Side" data={value} symbol={outputUnits.symbol} />
-          <OutputComponents color={BG_COLOR} title="Diagonal" data={findDiagonal(value, value)} symbol={outputUnits.symbol} />
-          <OutputComponents color={BG_COLOR} title="Perimeter" data={4*value} symbol={outputUnits.symbol} />
-          <OutputComponents color={BG_COLOR} unit={2} title="Area" data={value*value} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Side" data={VAL.SIDE} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Diagonal" data={VAL.DIAGONAL} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Perimeter" data={VAL.PERIMETER} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} unit={2} title="Area" data={VAL.AREA} symbol={outputUnits.symbol} />
+          <SliderComponent color={BG_COLOR} roundOff={roundOff} setRoundOff={setRoundOff} />
         </View>
       </ScrollView>
     </SafeAreaView>

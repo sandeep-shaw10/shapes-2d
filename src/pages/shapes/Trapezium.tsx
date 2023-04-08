@@ -5,6 +5,7 @@ import UNIT from "../../assets/UnitData";
 import DropdownComponent from "../../components/DropDownComponent";
 import NumericInputComponent from "../../components/NumericInputComponent";
 import OutputComponents from "../../components/OutputComponent";
+import SliderComponent from "../../components/SliderComponent";
 import TrapeziumSVG from "../../components/SVG/Trapezium";
 import convertUnits from "../../utils/convertUnits";
 
@@ -18,9 +19,16 @@ const TrapeziumScreen = () => {
   const [side1, setSide1] = useState<string>('')
   const [side2, setSide2] = useState<string>('')
   const [side3, setSide3] = useState<string>('')
+  const [roundOff, setRoundOff] = useState<number>(0)
   const value1 = convertUnits(parseFloat(side1), inputUnits.symbol, outputUnits.symbol, UNIT);
   const value2 = convertUnits(parseFloat(side2), inputUnits.symbol, outputUnits.symbol, UNIT);
   const height = convertUnits(parseFloat(side3), inputUnits.symbol, outputUnits.symbol, UNIT);
+  const VAL = {
+    BASE1: parseFloat(value1.toFixed(roundOff)),
+    BASE2: parseFloat(value2.toFixed(roundOff)),
+    HEIGHT: parseFloat(height.toFixed(roundOff)),
+    AREA: parseFloat(((value1 + value2) * height / 2).toFixed(roundOff))
+  }
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -36,10 +44,11 @@ const TrapeziumScreen = () => {
         <NumericInputComponent init={side3} setInit={setSide3} placeholder="Height between these Side" highlight={BG_COLOR} />
         <DropdownComponent data={UNIT} init={outputUnits} setInit={setOutputUnits} placeholder="Select Output Unit" highlight={BG_COLOR} />
         <View style={styles.outputWrapper}>
-          <OutputComponents color={BG_COLOR} title="Side 1" data={value1} symbol={outputUnits.symbol} />
-          <OutputComponents color={BG_COLOR} title="Side 2" data={value2} symbol={outputUnits.symbol} />
-          <OutputComponents color={BG_COLOR} title="Height" data={height} symbol={outputUnits.symbol} />
-          <OutputComponents color={BG_COLOR} unit={2} title="Area" data={((value1 + value2) * height / 2)} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Side 1" data={VAL.BASE1} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Side 2" data={VAL.BASE2} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Height" data={VAL.HEIGHT} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} unit={2} title="Area" data={VAL.AREA} symbol={outputUnits.symbol} />
+          <SliderComponent color={BG_COLOR} roundOff={roundOff} setRoundOff={setRoundOff} />
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -5,6 +5,7 @@ import UNIT from "../../assets/UnitData";
 import DropdownComponent from "../../components/DropDownComponent";
 import NumericInputComponent from "../../components/NumericInputComponent";
 import OutputComponents from "../../components/OutputComponent";
+import SliderComponent from "../../components/SliderComponent";
 import RectSVG from "../../components/SVG/RectSVG";
 import convertUnits from "../../utils/convertUnits";
 import { findDiagonal } from "../../utils/shapeCalculator";
@@ -20,7 +21,14 @@ const ReactangleScreen = () => {
   const [side2, setSide2] = useState<string>('')
   const value1 = convertUnits(parseFloat(side1), inputUnits.symbol, outputUnits.symbol, UNIT);
   const value2 = convertUnits(parseFloat(side2), inputUnits.symbol, outputUnits.symbol, UNIT);
-
+  const [roundOff, setRoundOff] = useState<number>(0)
+  const VAL = {
+    LENGTH: parseFloat((value1).toFixed(roundOff)),
+    BREADTH: parseFloat((value2).toFixed(roundOff)),
+    DIAGONAL: parseFloat((findDiagonal(value1, value2)).toFixed(roundOff)),
+    PERIMETER: parseFloat((value1+value2).toFixed(roundOff)),
+    AREA: parseFloat((value1*value2).toFixed(roundOff))
+  }
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -35,11 +43,12 @@ const ReactangleScreen = () => {
         <NumericInputComponent init={side2} setInit={setSide2} placeholder="Breadth" highlight={BG_COLOR} />
         <DropdownComponent data={UNIT} init={outputUnits} setInit={setOutputUnits} placeholder="Select Output Unit" highlight={BG_COLOR} />
         <View style={styles.outputWrapper}>
-          <OutputComponents color={BG_COLOR} title="Length" data={value1} symbol={outputUnits.symbol} />
-          <OutputComponents color={BG_COLOR} title="Breadth" data={value2} symbol={outputUnits.symbol} />
-          <OutputComponents color={BG_COLOR} title="Diagonal" data={findDiagonal(value1, value2)} symbol={outputUnits.symbol} />
-          <OutputComponents color={BG_COLOR} title="Perimeter" data={value1+value2} symbol={outputUnits.symbol} />
-          <OutputComponents color={BG_COLOR} unit={2} title="Area" data={value1*value2} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Length" data={VAL.LENGTH} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Breadth" data={VAL.BREADTH} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Diagonal" data={VAL.DIAGONAL} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Perimeter" data={VAL.PERIMETER} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} unit={2} title="Area" data={VAL.AREA} symbol={outputUnits.symbol} />
+          <SliderComponent color={BG_COLOR} roundOff={roundOff} setRoundOff={setRoundOff} />
         </View>
       </ScrollView>
     </SafeAreaView>
