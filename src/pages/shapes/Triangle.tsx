@@ -20,7 +20,7 @@ const InValid = ({v1, v2, v3}: Props) => {
   const s1 = v1 === '' ? 0 : parseInt(v1)
   const s2 = v2 === '' ? 0 : parseInt(v2)
   const s3 = v3 === '' ? 0 : parseInt(v3)
-  return <Text style={{ fontSize: 16 }}>{`${s1+s2>s3 ? 'Valid' : 'InValid'} : ${s1}+${s2} > ${s3}`}</Text>
+  return <Text style={{ fontSize: 16, color: "#888" }}>{`${s1+s2>s3 ? 'Valid' : 'InValid'} : ${s1}+${s2} > ${s3}`}</Text>
 }
 
 const TriangleScreen = () => {
@@ -65,7 +65,7 @@ const TriangleScreen = () => {
           <OutputComponents color={BG_COLOR} unit={2} title="Area" data={VAL.AREA} symbol={outputUnits.symbol} />
           <SliderComponent color={BG_COLOR} roundOff={roundOff} setRoundOff={setRoundOff} />
         </View> : <View style={styles.outputWrapper}>
-            <Text style={{ fontSize: 32 }}>Not A Valid Triangle</Text>
+            <Text style={{ fontSize: 32, color: "#777" }}>Not A Valid Triangle</Text>
             <InValid v1={side1} v2={side2} v3={side3} />
             <InValid v1={side1} v2={side3} v3={side2} />
             <InValid v1={side2} v2={side3} v3={side1} />
