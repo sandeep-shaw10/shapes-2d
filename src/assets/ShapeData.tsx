@@ -45,6 +45,13 @@ const SHAPES = [
       bgColor: '#4f46e5',  //600
       shapeSVG: colourizeSVG(<TrapeziumSVG/>, '#c7d2fe')
     },
+    {
+      shape: 'N-gon',
+      to: 'ngon',
+      color: '#c7d2fe',   // 200
+      bgColor: '#4f46e5',  //600
+      shapeSVG: colourizeSVG(<TrapeziumSVG/>, '#c7d2fe')
+    },
 ]
 
 

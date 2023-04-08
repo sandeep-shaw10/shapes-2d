@@ -7,6 +7,7 @@ import TriangleScreen from './src/pages/shapes/Triangle';
 import SquareScreen from './src/pages/shapes/Square';
 import ReactangleScreen from './src/pages/shapes/Rectangle';
 import TrapeziumScreen from './src/pages/shapes/Trapezium';
+import NgonScreen from './src/pages/shapes/Ngon';
 
 
 
@@ -33,6 +34,7 @@ function App(): JSX.Element {
         <Stack.Screen name="square" component={SquareScreen} options={{ title: 'Square' }} />
         <Stack.Screen name="rectangle" component={ReactangleScreen} options={{ title: 'Rectangle' }} />
         <Stack.Screen name="trapezium" component={TrapeziumScreen} options={{ title: 'Trapezium' }} />
+        <Stack.Screen name="ngon" component={NgonScreen} options={{ title: 'Regular N-gon' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

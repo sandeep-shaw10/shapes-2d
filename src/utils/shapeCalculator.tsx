@@ -38,9 +38,41 @@ function findDiagonal(width: number, height: number): number {
   return Math.sqrt(width * width + height * height);
 }
 
+function calculateAngles(n: number): { interiorAngle: number, exteriorAngle: number } {
+  let interiorAngle = -1;
+  let exteriorAngle = -1;
+  if (n < 3) return { interiorAngle, exteriorAngle }
+  interiorAngle = (n - 2) * 180 / n;
+  exteriorAngle = 360 / n;
+  return { interiorAngle, exteriorAngle };
+}
+
+function calculateApothem(n: number, s: number): number {
+  const radians = (2 * Math.PI) / n;
+  return s / (2 * Math.tan(radians / 2));
+}
+
+function calculateNGonArea(n: number, sideLength: number): number {
+  const perimeter = n * sideLength;
+  const apothem = calculateApothem(n, sideLength);
+  return 0.5 * perimeter * apothem;
+}
+
+function calculateTriangleRadii(a: number, b: number, c: number): { circumradius: number, inradius: number } {
+  const s = (a + b + c) / 2;
+  const area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+  const circumradius = (a * b * c) / (4 * Math.sqrt(s * (s - a) * (s - b) * (s - c)));
+  const inradius = area / s;
+  return { circumradius, inradius };
+}
+
 
 export { 
   triangleArea,
   findDiagonal,
-  calculateTriangleAngles
+  calculateTriangleAngles,
+  calculateAngles,
+  calculateApothem,
+  calculateNGonArea,
+  calculateTriangleRadii
 }
