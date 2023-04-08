@@ -8,11 +8,12 @@ import UNIT from "../../assets/UnitData";
 import OutputComponents from "../../components/OutputComponent";
 import convertUnits from "../../utils/convertUnits";
 import SliderComponent from "../../components/SliderComponent";
+import COLOR from "../../assets/ColorData";
 
 
 const CircleScreen = () => {
 
-  const BG_COLOR = '#16a34a'
+  const BG_COLOR = COLOR.CIRCLE[1]
   const backgroundStyle = { backgroundColor: BG_COLOR };
   const [inputUnits, setInputUnits] = useState(UNIT[0])
   const [outputUnits, setOutputUnits] = useState(UNIT[1])
@@ -22,8 +23,8 @@ const CircleScreen = () => {
   const VAL = {
     RADIUS: parseFloat(value.toFixed(roundOff)),
     DIAMETER: parseFloat((value*2).toFixed(roundOff)),
-    CIRCUMFERENCE: parseFloat((2*(22/7)*value).toFixed(roundOff)),
-    AREA: parseFloat(((22/7)*value*value).toFixed(roundOff))
+    CIRCUMFERENCE: parseFloat((2*Math.PI*value).toFixed(roundOff)),
+    AREA: parseFloat((Math.PI*value*value).toFixed(roundOff))
   }
 
   return (

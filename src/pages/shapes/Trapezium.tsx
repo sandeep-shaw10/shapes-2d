@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import COLOR from "../../assets/ColorData";
 import UNIT from "../../assets/UnitData";
 import DropdownComponent from "../../components/DropDownComponent";
 import NumericInputComponent from "../../components/NumericInputComponent";
@@ -12,7 +13,7 @@ import convertUnits from "../../utils/convertUnits";
 
 const TrapeziumScreen = () => {
 
-  const BG_COLOR = '#4f46e5'
+  const BG_COLOR = COLOR.TRAPEZIUM[1]
   const backgroundStyle = { backgroundColor: BG_COLOR };
   const [inputUnits, setInputUnits] = useState(UNIT[0])
   const [outputUnits, setOutputUnits] = useState(UNIT[1])

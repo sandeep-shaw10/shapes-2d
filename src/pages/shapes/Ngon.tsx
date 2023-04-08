@@ -11,11 +11,13 @@ import SliderComponent from "../../components/SliderComponent";
 import WholeInputComponent from "../../components/WholeInputComponent";
 import nameNgon from "../../utils/nameNgon";
 import { calculateAngles, calculateApothem, calculateNGonArea } from "../../utils/shapeCalculator";
+import NgonSVG from "../../components/SVG/NgonSVG";
+import COLOR from "../../assets/ColorData";
 
 
 const NgonScreen = () => {
 
-  const BG_COLOR = '#16a34a'
+  const BG_COLOR = COLOR.NGON[1]
   const backgroundStyle = { backgroundColor: BG_COLOR };
   const [inputUnits, setInputUnits] = useState(UNIT[0])
   const [outputUnits, setOutputUnits] = useState(UNIT[1])
@@ -38,7 +40,7 @@ const NgonScreen = () => {
       <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
         <View style={styles.cardWrapper}>
             <View style={styles.shapeWrapper}>
-                <CircleSVG color="white" size={250} />
+                <NgonSVG color="white" size={250} />
             </View>
         </View>
         <DropdownComponent data={UNIT} init={inputUnits} setInit={setInputUnits} placeholder="Select Input Unit" highlight={BG_COLOR} />

@@ -7,28 +7,32 @@ import DropdownComponent from "../../components/DropDownComponent";
 import NumericInputComponent from "../../components/NumericInputComponent";
 import OutputComponents from "../../components/OutputComponent";
 import SliderComponent from "../../components/SliderComponent";
-import RectSVG from "../../components/SVG/RectSVG";
+import RhombusSVG from "../../components/SVG/RhombusSVG";
+import SquareSVG from "../../components/SVG/SquareSVG";
 import convertUnits from "../../utils/convertUnits";
-import { findDiagonal } from "../../utils/shapeCalculator";
+import { calculateRhombus, findDiagonal } from "../../utils/shapeCalculator";
 
 
-const ReactangleScreen = () => {
+const RhombusScreen = () => {
 
-  const BG_COLOR = COLOR.RECTANGLE[1]
+  const BG_COLOR = COLOR.RHOMBUS[1]
   const backgroundStyle = { backgroundColor: BG_COLOR };
   const [inputUnits, setInputUnits] = useState(UNIT[0])
   const [outputUnits, setOutputUnits] = useState(UNIT[1])
   const [side1, setSide1] = useState<string>('')
   const [side2, setSide2] = useState<string>('')
+  const [roundOff, setRoundOff] = useState<number>(0)
   const value1 = convertUnits(parseFloat(side1), inputUnits.symbol, outputUnits.symbol, UNIT);
   const value2 = convertUnits(parseFloat(side2), inputUnits.symbol, outputUnits.symbol, UNIT);
-  const [roundOff, setRoundOff] = useState<number>(0)
+  const property = calculateRhombus(value1, value2)
   const VAL = {
-    LENGTH: parseFloat((value1).toFixed(roundOff)),
-    BREADTH: parseFloat((value2).toFixed(roundOff)),
-    DIAGONAL: parseFloat((findDiagonal(value1, value2)).toFixed(roundOff)),
-    PERIMETER: parseFloat((value1+value2).toFixed(roundOff)),
-    AREA: parseFloat((value1*value2).toFixed(roundOff))
+    DIAGONAL1: parseFloat(value1.toFixed(roundOff)),
+    DIAGONAL2: parseFloat(value2.toFixed(roundOff)),
+    SIDE: parseFloat((property.side).toFixed(roundOff)),
+    ANGLE1: property.angle1,
+    ANGLE2: property.angle2,
+    PERIMETER: parseFloat((property.perimeter).toFixed(roundOff)),
+    AREA: parseFloat((property.area).toFixed(roundOff))
   }
 
   return (
@@ -36,19 +40,21 @@ const ReactangleScreen = () => {
       <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
         <View style={styles.cardWrapper}>
             <View style={styles.shapeWrapper}>
-                <RectSVG color="white" size={250} />
+                <RhombusSVG color="white" size={250} />
             </View>
         </View>
         <DropdownComponent data={UNIT} init={inputUnits} setInit={setInputUnits} placeholder="Select Input Unit" highlight={BG_COLOR} />
-        <NumericInputComponent init={side1} setInit={setSide1} placeholder="Length" highlight={BG_COLOR} />
-        <NumericInputComponent init={side2} setInit={setSide2} placeholder="Breadth" highlight={BG_COLOR} />
+        <NumericInputComponent init={side1} setInit={setSide1} placeholder="First Diagonal" highlight={BG_COLOR} />
+        <NumericInputComponent init={side2} setInit={setSide2} placeholder="Second Diagonal" highlight={BG_COLOR} />
         <DropdownComponent data={UNIT} init={outputUnits} setInit={setOutputUnits} placeholder="Select Output Unit" highlight={BG_COLOR} />
         <View style={styles.outputWrapper}>
-          <OutputComponents color={BG_COLOR} title="Length" data={VAL.LENGTH} symbol={outputUnits.symbol} />
-          <OutputComponents color={BG_COLOR} title="Breadth" data={VAL.BREADTH} symbol={outputUnits.symbol} />
-          <OutputComponents color={BG_COLOR} title="Diagonal" data={VAL.DIAGONAL} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Diagonal 1" data={VAL.DIAGONAL1} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Diagonal 2" data={VAL.DIAGONAL2} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Side" data={VAL.SIDE} symbol={outputUnits.symbol} />
           <OutputComponents color={BG_COLOR} title="Perimeter" data={VAL.PERIMETER} symbol={outputUnits.symbol} />
           <OutputComponents color={BG_COLOR} unit={2} title="Area" data={VAL.AREA} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Angle 1" data={VAL.ANGLE1} symbol='degree' />
+          <OutputComponents color={BG_COLOR} title="Angle 2" data={VAL.ANGLE2} symbol='degree' />
           <SliderComponent color={BG_COLOR} roundOff={roundOff} setRoundOff={setRoundOff} />
         </View>
       </ScrollView>
@@ -75,4 +81,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default ReactangleScreen
+export default RhombusScreen

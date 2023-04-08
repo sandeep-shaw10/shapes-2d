@@ -8,6 +8,8 @@ import SquareScreen from './src/pages/shapes/Square';
 import ReactangleScreen from './src/pages/shapes/Rectangle';
 import TrapeziumScreen from './src/pages/shapes/Trapezium';
 import NgonScreen from './src/pages/shapes/Ngon';
+import RhombusScreen from './src/pages/shapes/Rhombus';
+import ParallelogramScreen from './src/pages/shapes/Parallelogram';
 
 
 
@@ -35,6 +37,8 @@ function App(): JSX.Element {
         <Stack.Screen name="rectangle" component={ReactangleScreen} options={{ title: 'Rectangle' }} />
         <Stack.Screen name="trapezium" component={TrapeziumScreen} options={{ title: 'Trapezium' }} />
         <Stack.Screen name="ngon" component={NgonScreen} options={{ title: 'Regular N-gon' }} />
+        <Stack.Screen name="rhombus" component={RhombusScreen} options={{ title: 'Rhombus' }} />
+        <Stack.Screen name="parallelogram" component={ParallelogramScreen} options={{ title: 'Parallelogram' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

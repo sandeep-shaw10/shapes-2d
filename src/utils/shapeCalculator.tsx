@@ -67,6 +67,28 @@ function calculateTriangleRadii(a: number, b: number, c: number): { circumradius
 }
 
 
+function calculateRhombus(diagonal1: number, diagonal2: number): { side: number, angle1: number, angle2: number, perimeter: number, area: number } {
+  const side = Math.sqrt((diagonal1/2) ** 2 + (diagonal2/2) ** 2);
+  const perimeter = side * 4;
+  const angle1 = Math.atan2(diagonal2, diagonal1 - diagonal2) * 180 / Math.PI;
+  const angle2 = Math.atan2(diagonal1, diagonal2 - diagonal1) * 180 / Math.PI;
+  const area = (diagonal1 * diagonal2) / 2;
+  return { side, angle1, angle2, perimeter, area };
+}
+
+
+function calculateParallelogram(base: number, adjacentSide: number, height: number): { angle1: number, angle2: number, diagonal1: number, diagonal2: number, area: number, perimeter: number } {
+  const angle1 = (Math.asin(height / adjacentSide) * (180 / Math.PI));
+  const angle2 = 180 - angle1;
+  const area = base * height;
+  const perimeter = 2 * (base + adjacentSide);
+  const diagonal1 = Math.sqrt(Math.pow(base,2) + Math.pow(adjacentSide,2) - 2*base*adjacentSide*Math.cos(angle1*(Math.PI/180)))
+  const diagonal2 = Math.sqrt(Math.pow(base,2) + Math.pow(adjacentSide,2) - 2*base*adjacentSide*Math.cos(angle2*(Math.PI/180)))
+  return { angle1, angle2, diagonal1, diagonal2, area, perimeter };
+}
+
+
+
 export { 
   triangleArea,
   findDiagonal,
@@ -74,5 +96,7 @@ export {
   calculateAngles,
   calculateApothem,
   calculateNGonArea,
-  calculateTriangleRadii
+  calculateTriangleRadii,
+  calculateRhombus,
+  calculateParallelogram
 }

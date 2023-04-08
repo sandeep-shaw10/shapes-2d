@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import COLOR from "../../assets/ColorData";
 import UNIT from "../../assets/UnitData";
 import DropdownComponent from "../../components/DropDownComponent";
 import NumericInputComponent from "../../components/NumericInputComponent";
@@ -13,7 +14,7 @@ import { findDiagonal } from "../../utils/shapeCalculator";
 
 const SquareScreen = () => {
 
-  const BG_COLOR = '#0891b2'
+  const BG_COLOR = COLOR.SQUARE[1]
   const backgroundStyle = { backgroundColor: BG_COLOR };
   const [inputUnits, setInputUnits] = useState(UNIT[0])
   const [outputUnits, setOutputUnits] = useState(UNIT[1])

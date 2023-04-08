@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import COLOR from "../../assets/ColorData";
 import UNIT from "../../assets/UnitData";
 import DropdownComponent from "../../components/DropDownComponent";
 import NumericInputComponent from "../../components/NumericInputComponent";
@@ -25,7 +26,7 @@ const InValid = ({v1, v2, v3}: Props) => {
 
 const TriangleScreen = () => {
 
-  const BG_COLOR = '#059669'
+  const BG_COLOR = COLOR.TRIANGLE[1]
   const backgroundStyle = { backgroundColor: BG_COLOR };
   const [inputUnits, setInputUnits] = useState(UNIT[0])
   const [outputUnits, setOutputUnits] = useState(UNIT[1])
