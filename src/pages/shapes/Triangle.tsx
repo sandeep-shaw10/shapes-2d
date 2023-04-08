@@ -8,7 +8,7 @@ import OutputComponents from "../../components/OutputComponent";
 import SliderComponent from "../../components/SliderComponent";
 import TriangleSVG from "../../components/SVG/TriangleSVG";
 import convertUnits from "../../utils/convertUnits";
-import { triangleArea } from "../../utils/shapeCalculator";
+import { calculateTriangleAngles, triangleArea } from "../../utils/shapeCalculator";
 
 interface Props {
   v1: string;
@@ -41,7 +41,8 @@ const TriangleScreen = () => {
     SIDE2: parseFloat(value2.toFixed(roundOff)),
     SIDE3: parseFloat(value3.toFixed(roundOff)),
     PERIMETER: parseFloat((value1 + value2 + value3).toFixed(roundOff)),
-    AREA: parseFloat((triangleArea(value1, value2, value3)).toFixed(roundOff))
+    AREA: parseFloat((triangleArea(value1, value2, value3)).toFixed(roundOff)),
+    ANGLES: calculateTriangleAngles(value1, value2, value3)
   }
 
   return (
@@ -63,6 +64,9 @@ const TriangleScreen = () => {
           <OutputComponents color={BG_COLOR} title="Side 3" data={VAL.SIDE3} symbol={outputUnits.symbol} />
           <OutputComponents color={BG_COLOR} title="Perimeter" data={VAL.PERIMETER} symbol={outputUnits.symbol} />
           <OutputComponents color={BG_COLOR} unit={2} title="Area" data={VAL.AREA} symbol={outputUnits.symbol} />
+          <OutputComponents color={BG_COLOR} title="Angle 1" data={VAL.ANGLES.angleA} symbol={'degree'} />
+          <OutputComponents color={BG_COLOR} title="Angle 2" data={VAL.ANGLES.angleB} symbol={'degree'} />
+          <OutputComponents color={BG_COLOR} title="Angle 3" data={VAL.ANGLES.angleC} symbol={'degree'} />
           <SliderComponent color={BG_COLOR} roundOff={roundOff} setRoundOff={setRoundOff} />
         </View> : <View style={styles.outputWrapper}>
             <Text style={{ fontSize: 32, color: "#777" }}>Not A Valid Triangle</Text>
