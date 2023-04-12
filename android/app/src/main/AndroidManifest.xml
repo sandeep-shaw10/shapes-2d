@@ -9,6 +9,12 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
+        <meta-data
+          android:name="com.example.myapp.description"
+          android:value="This Shape Calculator app calculates the geometric properties like areas and perimeters of 8 different shapes using different units" />
+        <meta-data
+          android:name="com.example.myapp.shape"
+          android:value="Circle, Triangle, Rectangle, Square, Parallelogram, Rhombus, Trapezium, N-gon" />
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"
