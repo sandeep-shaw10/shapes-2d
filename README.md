@@ -126,7 +126,7 @@ Shapes Calculator 2D is a powerful and intuitive app for calculating the geometr
 
 ## Project Dependencies
 
-### [prackage.json](./package.json)
+### [package.json](./package.json)
 
 ```json
   "dependencies": {
@@ -151,7 +151,7 @@ Shapes Calculator 2D is a powerful and intuitive app for calculating the geometr
 You can install the app by downloading the APK file from here and installing it on your Android device. 
 
 ![android-tested](https://img.shields.io/badge/tested-✔️-green)
-![apk](https://img.shields.io/badge/apk-Coming%20Soon-082f49)
+[![apk](https://img.shields.io/badge/apk-Amazon%20Appstore-232f3e)](https://www.amazon.com/dp/B0C1XC555F)
 
 ## iOS
 For iOS devices, the app is currently not available on the App Store.
